@@ -1,6 +1,5 @@
 package com.drednoot.smartcalc.ui
 
-import android.widget.Button
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,22 +14,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavHostController
 import com.drednoot.smartcalc.R
 import com.drednoot.smartcalc.ui.theme.SmartcalcTheme
 
-@Preview(showBackground = true, device = "id:pixel_5")
+internal data class MenuButton(
+    val text: String,
+    val onClick: () -> Unit
+)
+//@Preview(showBackground = true, device = "id:pixel_5")
 @Composable
-fun MainMenu() {
+fun MainMenu(navController: NavHostController) {
     SmartcalcTheme {
-        // A surface container using the 'background' color from the theme
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
             MainMenuButtons(listOf(
-                MenuButton(stringResource(R.string.calculator_btn_text)) {},
+                MenuButton(stringResource(R.string.calculator_btn_text)) {navController.navigate("calculator")},
 //                MenuButton("asdf") {},
             ))
         }
@@ -38,7 +41,7 @@ fun MainMenu() {
 }
 
 @Composable
-fun MainMenuButtons(buttons: List<MenuButton>) {
+internal fun MainMenuButtons(buttons: List<MenuButton>) {
     Column(
         Modifier
             .width(IntrinsicSize.Max)
@@ -54,8 +57,3 @@ fun MainMenuButtons(buttons: List<MenuButton>) {
         }
     }
 }
-
-data class MenuButton(
-    val text: String,
-    val onClick: () -> Unit
-)
