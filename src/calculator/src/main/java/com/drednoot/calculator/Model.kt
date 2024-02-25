@@ -36,8 +36,8 @@ enum class Action(val execute: (Double, Double) -> Double) {
 
 @Parcelize
 data class Memory(
-    val bufFront: String = "",
-    val bufBack: String = "",
+    val bufFront: String = "0",
+    val bufBack: String = "0",
     val action: Action = Action.EQ,
     val isActionLast: Boolean = false,
 ) : Parcelable
@@ -46,6 +46,17 @@ object Model {
     private fun String.toDoubleZero(): Double {
         return toDoubleOrNull() ?: 0.0
     }
+
+    private fun Double.toStringFmt(): String {
+        if (this <= 1e-6) return "0"
+        var ret =  String.format("%.6f", this)
+        if (ret.contains('.')) {
+            ret = ret.trimEnd('0')
+            ret = ret.trimEnd('.')
+        }
+        return ret
+    }
+
     fun pressNumber(n: String, memState: MutableState<Memory>) {
         val mem = memState.value
         memState.value = if (mem.isActionLast) {
@@ -96,17 +107,26 @@ object Model {
             )
             Action.AC -> Memory()
             Action.PERCENT -> Memory(
-                bufFront = (mem.bufBack.toDoubleZero() * (mem.bufFront.toDoubleZero() / 100.0)).toString(),
+                bufFront = (mem.bufBack.toDoubleZero() * (mem.bufFront.toDoubleZero() / 100.0)).toStringFmt(),
                 bufBack = mem.bufBack,
                 action = mem.action,
                 isActionLast = false,
+            )
+            Action.EQ -> Memory(
+                bufFront = mem.action.execute(
+                    mem.bufFront.toDoubleZero(),
+                    mem.bufBack.toDoubleZero(),
+                ).toStringFmt(),
+                bufBack = mem.bufBack,
+                action = mem.action,
+                isActionLast = true,
             )
 
             else -> Memory(
                 bufFront = mem.action.execute(
                     mem.bufFront.toDoubleZero(),
                     mem.bufBack.toDoubleZero(),
-                ).toString(),
+                ).toStringFmt(),
                 bufBack = mem.bufFront,
                 action = action,
                 isActionLast = true,
