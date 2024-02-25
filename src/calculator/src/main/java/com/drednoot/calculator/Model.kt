@@ -36,11 +36,22 @@ enum class Action(val execute: (Double, Double) -> Double) {
 
 @Parcelize
 data class Memory(
-    val bufFront: String = "0",
-    val bufBack: String = "0",
-    val action: Action = Action.EQ,
-    val isActionLast: Boolean = false,
-) : Parcelable
+    val bufFront: String,
+    val bufBack: String,
+    val action: Action,
+    val isActionLast: Boolean,
+) : Parcelable {
+    companion object {
+        fun default(): Memory {
+            return Memory(
+                "0",
+                "0",
+                Action.EQ,
+                false,
+            )
+        }
+    }
+}
 
 object Model {
     private fun String.toDoubleZero(): Double {
@@ -105,7 +116,7 @@ object Model {
                 action = mem.action,
                 isActionLast = false,
             )
-            Action.AC -> Memory()
+            Action.AC -> Memory.default()
             Action.PERCENT -> Memory(
                 bufFront = (mem.bufBack.toDoubleZero() * (mem.bufFront.toDoubleZero() / 100.0)).toStringFmt(),
                 bufBack = mem.bufBack,

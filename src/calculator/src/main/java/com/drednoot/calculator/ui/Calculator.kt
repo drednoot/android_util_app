@@ -26,7 +26,7 @@ import com.drednoot.calculator.R
 @Composable
 fun Calculator() {
     SmartcalcTheme {
-        val memory = rememberSaveable { mutableStateOf(Memory()) }
+        val memory = rememberSaveable { mutableStateOf(Memory.default()) }
 
         Surface(
             modifier = Modifier.fillMaxSize(),
