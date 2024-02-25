@@ -121,7 +121,7 @@ object Model {
                 bufFront = (mem.bufBack.toDoubleZero() * (mem.bufFront.toDoubleZero() / 100.0)).toStringFmt(),
                 bufBack = mem.bufBack,
                 action = mem.action,
-                isActionLast = false,
+                isActionLast = true,
             )
             Action.EQ -> Memory(
                 bufFront = mem.action.execute(
