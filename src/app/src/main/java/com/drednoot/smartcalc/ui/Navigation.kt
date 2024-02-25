@@ -11,8 +11,12 @@ enum class NavigationTarget(val target: String) {
     CALCULATOR("calculator"),
 }
 
+fun NavHostController.navigate(target: NavigationTarget) {
+    navigate(target.target)
+}
+
 @Composable
-fun NavHost(navController: NavHostController) {
+fun SetupNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = NavigationTarget.MAIN_MENU.target,
@@ -21,4 +25,3 @@ fun NavHost(navController: NavHostController) {
         composable(NavigationTarget.CALCULATOR.target) { Calculator() }
     }
 }
-

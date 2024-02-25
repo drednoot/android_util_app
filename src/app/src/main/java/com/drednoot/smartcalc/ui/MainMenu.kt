@@ -33,7 +33,7 @@ fun MainMenu(navController: NavHostController) {
             color = MaterialTheme.colorScheme.background
         ) {
             MainMenuButtons(listOf(
-                MenuButton(stringResource(R.string.calculator_btn_text)) {navController.navigate("calculator")},
+                MenuButton(stringResource(R.string.calculator_btn_text)) { navController.navigate(NavigationTarget.CALCULATOR) },
 //                MenuButton("asdf") {},
             ))
         }
