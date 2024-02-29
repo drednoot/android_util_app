@@ -22,6 +22,6 @@ fun SetupNavHost(navController: NavHostController) {
         startDestination = NavigationTarget.MAIN_MENU.target,
     ) {
         composable(NavigationTarget.MAIN_MENU.target) { MainMenu(navController) }
-        composable(NavigationTarget.CALCULATOR.target) { Calculator() }
+        composable(NavigationTarget.CALCULATOR.target) { Calculator().Screen() }
     }
 }
