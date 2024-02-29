@@ -3,6 +3,7 @@ package com.drednoot.calculator
 import android.os.Parcelable
 import androidx.compose.runtime.MutableState
 import kotlinx.parcelize.Parcelize
+import kotlin.math.absoluteValue
 
 enum class Action {
     NOTHING,
@@ -74,7 +75,7 @@ object Model {
         return toDoubleOrNull() ?: 0.0
     }
     private fun Double.toStringFmt(): String {
-        if (this <= 1e-6) return "0"
+        if (this.absoluteValue <= 1e-6) return "0"
         var ret =  String.format("%.6f", this)
         if (ret.contains('.')) {
             ret = ret.trimEnd('0')
@@ -94,8 +95,8 @@ object Model {
         return execute(back, front, action)
     }
 
-    private fun Memory.executeMemActionMemFront(): String {
-        return execute(back, backMemory, actionMemory)
+    private fun Memory.executeFrontActionMemoryMemory(front: String): String {
+        return execute(front, backMemory, actionMemory)
     }
 
     private fun Memory.executeMemActionFront(front: String): String {
@@ -168,7 +169,7 @@ object Model {
     }
 
     private fun pressOperator(action: Action, mem: Memory, front: MutableState<String>): Memory {
-        return if (mem.isRefreshing) {
+        return if (mem.isRefreshing && mem.action != Action.NOTHING) {
             Memory(
                 true,
                 action,
@@ -192,7 +193,7 @@ object Model {
 
     private fun pressEq(mem: Memory, front: MutableState<String>): Memory {
         return if (mem.actionMemory != Action.NOTHING) {
-            front.value = mem.executeMemActionMemFront()
+            front.value = mem.executeFrontActionMemoryMemory(front.value)
             Memory(
                 true,
                 Action.NOTHING,
