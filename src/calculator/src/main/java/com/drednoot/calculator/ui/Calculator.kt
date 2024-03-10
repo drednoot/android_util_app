@@ -16,9 +16,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.drednoot.calculator.Action
 import com.drednoot.calculator.Memory
-import com.drednoot.calculator.ui.theme.SmartcalcTheme
 import com.drednoot.calculator.Model
 import com.drednoot.calculator.R
+import com.drednoot.calculator.ui.theme.SmartcalcTheme
 
 internal const val DEFAULT_FRONT_BUFFER = "0"
 
@@ -27,9 +27,9 @@ class  Calculator {
     @Preview(showBackground = true, device = "id:pixel_5")
     @Composable
     fun Screen() {
-        SmartcalcTheme {
-            val frontBuffer = rememberSaveable { mutableStateOf(DEFAULT_FRONT_BUFFER) }
+        val frontBuffer = rememberSaveable { mutableStateOf(DEFAULT_FRONT_BUFFER) }
 
+        SmartcalcTheme {
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background

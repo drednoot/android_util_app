@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "smartcalc"
 include(":app")
 include(":calculator")
+include(":circles")

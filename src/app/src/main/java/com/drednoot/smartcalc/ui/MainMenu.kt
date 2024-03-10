@@ -34,7 +34,7 @@ fun MainMenu(navController: NavHostController) {
         ) {
             MainMenuButtons(listOf(
                 MenuButton(stringResource(R.string.calculator_btn_text)) { navController.navigate(NavigationTarget.CALCULATOR) },
-//                MenuButton("asdf") {},
+                MenuButton(stringResource(id = R.string.circles_btn_text)) { navController.navigate(NavigationTarget.CIRCLES) }
             ))
         }
     }

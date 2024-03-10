@@ -2,4 +2,5 @@
     <string name="app_name">smartcalc</string>
     <string name="main_menu_header_text">Util App Thing</string>
     <string name="calculator_btn_text">Calculator</string>
+    <string name="circles_btn_text">Circles</string>
 </resources>
